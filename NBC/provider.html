@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tomato</title>
+  </head>
+  <body>
+    <h1>DC</h1>
+    <div class="thumbnails">
+      <div class="thumbnail" data-video-id="1">
+        <img src="/NBC/thumb/b99.jpg" />
+        <h2>B99</h2>
+      </div>
+      <div class="thumbnail" data-video-id="2">
+        <img src="/NBC/thumb/keyandpeele.jpg" />
+        <h2>Key and Peele</h2>
+      </div>
+      <div class="thumbnail" data-video-id="3">
+        <img src="/NBC/thumb/office.jpg" />
+        <h2>Office</h2>
+      </div>
+    </div>
+    <div id="video-container"></div>
+  </body>
+  <script>
+    const thumbnails = document.querySelectorAll(".thumbnail");
+    const videoContainer = document.getElementById("video-container");
+    thumbnails.forEach((thumbnail) => {
+      thumbnail.addEventListener("click", () => {
+        const videoId = thumbnail.dataset.videoId;
+        console.log(thumbnail.dataset);
+        const provider = window.location.pathname.split("/")[1];
+        const videoFileName = thumbnail
+          .querySelector("img")
+          .src.split("/")[5]
+          .split(".")[0];
+        const videoUrl = `/${provider}/videos/${videoFileName}.mp4`;
+        const videoPlayer = document.createElement("video");
+        videoPlayer.src = videoUrl;
+        videoPlayer.controls = true;
+        videoPlayer.autoplay = true;
+        videoContainer.innerHTML = "";
+        videoContainer.appendChild(videoPlayer);
+      });
+    });
+  </script>
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    ul {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .thumbnails {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .thumbnail {
+      width: 200px;
+      padding: 4rem;
+      text-align: center;
+    }
+
+    .thumbnail img {
+      max-width: 100%;
+      height: auto;
+      cursor: pointer;
+    }
+
+    #video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+  </style>
+</html>
